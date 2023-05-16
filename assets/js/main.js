@@ -1,10 +1,19 @@
+
 var settings = {
 
 	banner: {
 
+		// Indicators (= the clickable dots at the bottom).
 			indicators: true,
+
+		// Transition speed (in ms)
+		// For timing purposes only. It *must* match the transition speed of "#banner > article".
 			speed: 1500,
+
+		// Transition delay (in ms)
 			delay: 5000,
+
+		// Parallax intensity (between 0 and 1; higher = more intense, lower = less intense; 0 = off)
 			parallax: 0.25
 
 	}
@@ -21,6 +30,10 @@ var settings = {
 		xsmall:	'(max-width: 480px)'
 	});
 
+	/**
+	 * Applies parallax scrolling to an element's background image.
+	 * @return {jQuery} jQuery object.
+	 */
 	$.fn._parallax = (skel.vars.browser == 'ie' || skel.vars.mobile) ? function() { return $(this) } : function(intensity) {
 
 		var	$window = $(window),
@@ -92,6 +105,10 @@ var settings = {
 
 	};
 
+	/**
+	 * Custom banner slider for Slate.
+	 * @return {jQuery} jQuery object.
+	 */
 	$.fn._slider = function(options) {
 
 		var	$window = $(window),
@@ -109,6 +126,7 @@ var settings = {
 
 		}
 
+		// Vars.
 			var	current = 0, pos = 0, lastPos = 0,
 				slides = [], indicators = [],
 				$indicators,
@@ -116,9 +134,12 @@ var settings = {
 				intervalId,
 				isLocked = false,
 				i = 0;
+
+		// Turn off indicators if we only have one slide.
 			if ($slides.length == 1)
 				options.indicators = false;
 
+		// Functions.
 			$this._switchTo = function(x, stop) {
 
 				if (isLocked || pos == x)
